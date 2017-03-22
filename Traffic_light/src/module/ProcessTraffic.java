@@ -8,8 +8,12 @@ import static controller.Write.writeMinute;
 
 public class ProcessTraffic {
     public static void go() throws IOException, InterruptedException {
-        writeMinute(); // запуск контроллера, ввод информации с клавиатуры
+        writeMinute();
+        // запуск контроллера, контроллер осуществляет ввод информации с клавиатуры,
+        // пока не будет введлено все верно
         if (writeMinute())
-            new LightWindow().init(); // еслди ввод отработал коректно запуск режима окна и прорисовки для пользователя
+            new LightWindow().init();
+        // если метод ввода отработал коректно, то создание новой переменной у класса прорисовки окна и
+        // вызов у него метода прорисовки окна для пользователя
     }
 }

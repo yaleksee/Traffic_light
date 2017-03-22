@@ -10,7 +10,7 @@ import static controller.Write.*;
 
 public class LightWindow extends JFrame {
 
-    private int tominute = 1000; // увеличение введенного значения
+    private int tominute = 1000; // увеличение введенного значения, чтобы светофоры горели по дольше
     private final static int SIZE = 150; // фиксированный размер для кружочков
 
     private JLabel one, two, three; // элементы окна
@@ -37,7 +37,7 @@ public class LightWindow extends JFrame {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS)); // выравнивание по оси y
 
-        //назначаем переменные и заполняем массив, чтобы не было исключения пустой массив при запуске потоков
+        //назначаем переменные и заполняем массив, чтобы не выбросило исключения "пустой массив" при запуске потоков
         one = new JLabel(icons[0]);
         list.add(one);
         two = new JLabel(icons[1]);
@@ -55,7 +55,9 @@ public class LightWindow extends JFrame {
         initMetalLookAndFeel(); // метод установки дизайна экрана
         setVisible(true);
         for (int i =10 ; i>0; i--) {
-            runLight(); // запуск переключения цветов
+            runLight();
+            // запуск переключения цветов, гитхаб почему то не дает загрузить бесконечный цикл.
+            // сделал 10 проходов
         }
     }
 
@@ -63,6 +65,7 @@ public class LightWindow extends JFrame {
         ArrayList lst = getList();
         Thread red = new Thread(() -> {
             try {
+                // включаем онид сигнал и гасим предыдущий
                 ((JLabel) lst.get(0)).setIcon(icons[0]);
                 ((JLabel) lst.get(2)).setIcon(icons[3]);
                 Thread.sleep(getMinuteRed() * tominute);
@@ -88,6 +91,7 @@ public class LightWindow extends JFrame {
                 System.err.println("Warning!");
             }
         });
+        //ждем чтобы каждая нить отработала
         red.start();
         red.join();
         yellow.start();

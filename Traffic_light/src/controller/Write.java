@@ -32,15 +32,17 @@ public class Write {
     private static void setMinuteYellow(int minuteYellow) {
         Write.minuteYellow = minuteYellow;
     }
-
+    // по умолчанию время горения каждого цвета равен нулу.
+    // данные проинициализированы чтобы можно было проверить заполненны ли они в дальнейшем
     private static int minuteRed = 0;
     private static int minuteGreen = 0;
     private static int minuteYellow = 0;
 
-    //регулярное выражение
+    //регулярное выражение для проверки ввода данных
     private static String pattern1 = "[1-9]";
     private static Pattern p1 = Pattern.compile(pattern1);
 
+    // метод который будут вызывать сеттеры цветов светофора чтобы проинициализировать значения новыми данными
     private static int entryIsChecked(String name) throws IOException {
         int minute=0;
         System.out.println("please write minute for color " + name + " only numeric");
@@ -53,7 +55,7 @@ public class Write {
         return minute;
     }
 
-    //метод записи
+    //метод записи, если все цвета теперь имеют свое время горения больше нуля то метод отработал
     public static boolean writeMinute() throws IOException {
         for (; ; ) {
             if (minuteRed == 0) {
