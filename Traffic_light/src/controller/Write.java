@@ -17,13 +17,13 @@ public class Write {
         return minuteGreen;
     }
 
-    public static int getMinuteYelow() {
-        return minuteYelow;
+    public static int getMinuteYellow() {
+        return minuteYellow;
     }
 
     private static int minuteRed = 0;
     private static int minuteGreen = 0;
-    private static int minuteYelow = 0;
+    private static int minuteYellow = 0;
 
     //три вспомогательные переменные для фиксации того, что ввод был осуществлен верно
     private static int i = 0;
@@ -34,8 +34,8 @@ public class Write {
     private static String pattern1 = "[1-9]";
     private static Pattern p1 = Pattern.compile(pattern1);
 
-    private static int entryIsChecked(int minute) throws IOException {
-        System.out.println("please write minute for color, only numeric");
+    private static int entryIsChecked(int minute, String name) throws IOException {
+        System.out.println("please write minute for color " + name + " only numeric");
         String s = bufferedReader.readLine();
         Matcher m = p1.matcher(s);
         if (m.find()) {
@@ -49,16 +49,16 @@ public class Write {
     public static boolean writeMinute() throws IOException {
         for (; ; ) {
             if (i == 0) {
-                entryIsChecked(minuteRed);
+                entryIsChecked(minuteRed, "RED");
                 i = +1;
 
                 if (j == 0) {
-                    entryIsChecked(minuteYelow);
+                    entryIsChecked(minuteYellow, "YELLOW");
                     j = +1;
                 }
 
                 if (z == 0) {
-                    entryIsChecked(minuteGreen);
+                    entryIsChecked(minuteGreen, "GREEN");
                     z = +1;
                 }
 
