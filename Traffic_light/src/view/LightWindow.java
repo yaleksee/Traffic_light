@@ -54,7 +54,7 @@ public class LightWindow extends JFrame {
         pack(); // стягивание рамок экрана до размеров самого крупного элемента
         initMetalLookAndFeel(); // метод установки дизайна экрана
         setVisible(true);
-        for (int i = 10; i >= 0 ; i-- ) {
+        for (int i =10 ; i>0; i--) {
             runLight(); // запуск переключения цветов
         }
     }

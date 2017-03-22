@@ -21,20 +21,28 @@ public class Write {
         return minuteYellow;
     }
 
+    private static void setMinuteRed(int minuteRed) {
+        Write.minuteRed = minuteRed;
+    }
+
+    private static void setMinuteGreen(int minuteGreen) {
+        Write.minuteGreen = minuteGreen;
+    }
+
+    private static void setMinuteYellow(int minuteYellow) {
+        Write.minuteYellow = minuteYellow;
+    }
+
     private static int minuteRed = 0;
     private static int minuteGreen = 0;
     private static int minuteYellow = 0;
-
-    //три вспомогательные переменные для фиксации того, что ввод был осуществлен верно
-    private static int i = 0;
-    private static int j = 0;
-    private static int z = 0;
 
     //регулярное выражение
     private static String pattern1 = "[1-9]";
     private static Pattern p1 = Pattern.compile(pattern1);
 
-    private static int entryIsChecked(int minute, String name) throws IOException {
+    private static int entryIsChecked(String name) throws IOException {
+        int minute=0;
         System.out.println("please write minute for color " + name + " only numeric");
         String s = bufferedReader.readLine();
         Matcher m = p1.matcher(s);
@@ -48,22 +56,19 @@ public class Write {
     //метод записи
     public static boolean writeMinute() throws IOException {
         for (; ; ) {
-            if (i == 0) {
-                entryIsChecked(minuteRed, "RED");
-                i = +1;
+            if (minuteRed == 0) {
+                setMinuteRed(entryIsChecked("RED"));
             }
 
-            if (j == 0) {
-                entryIsChecked(minuteYellow, "YELLOW");
-                j = +1;
+            if (minuteYellow == 0) {
+                setMinuteYellow(entryIsChecked("YELLOW"));
             }
 
-            if (z == 0) {
-                entryIsChecked(minuteGreen, "GREEN");
-                z = +1;
+            if (minuteGreen == 0) {
+                setMinuteGreen(entryIsChecked("GREEN"));
             }
 
-            if (i != 0 && j != 0 && z != 0) {
+            if (minuteRed != 0 && minuteGreen != 0 && minuteYellow != 0) {
                 bufferedReader.close();
                 System.out.println("all right");
                 return true;
