@@ -51,23 +51,23 @@ public class Write {
             if (i == 0) {
                 entryIsChecked(minuteRed, "RED");
                 i = +1;
+            }
 
-                if (j == 0) {
-                    entryIsChecked(minuteYellow, "YELLOW");
-                    j = +1;
-                }
+            if (j == 0) {
+                entryIsChecked(minuteYellow, "YELLOW");
+                j = +1;
+            }
 
-                if (z == 0) {
-                    entryIsChecked(minuteGreen, "GREEN");
-                    z = +1;
-                }
+            if (z == 0) {
+                entryIsChecked(minuteGreen, "GREEN");
+                z = +1;
+            }
 
-                if (i != 0 && j != 0 && z != 0) {
-                    bufferedReader.close();
-                    return true;
-                }
+            if (i != 0 && j != 0 && z != 0) {
+                bufferedReader.close();
+                System.out.println("all right");
+                return true;
             }
         }
-
     }
 }

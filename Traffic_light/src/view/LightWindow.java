@@ -74,7 +74,7 @@ public class LightWindow extends JFrame {
             try {
                 ((JLabel) lst.get(1)).setIcon(icons[1]);
                 ((JLabel) lst.get(0)).setIcon(icons[3]);
-                Thread.sleep(getMinuteYelow() * tominute);
+                Thread.sleep(getMinuteYellow() * tominute);
             } catch (Exception ex) {
                 System.err.println("Warning!");
             }
