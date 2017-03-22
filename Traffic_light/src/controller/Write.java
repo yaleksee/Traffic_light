@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Write {
-    static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    private static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
     public static int getMinuteRed() {
         return minuteRed;
@@ -21,59 +21,53 @@ public class Write {
         return minuteYelow;
     }
 
-    static int minuteRed;
-    static int minuteGreen;
-    static int minuteYelow;
+    private static int minuteRed = 0;
+    private static int minuteGreen = 0;
+    private static int minuteYelow = 0;
 
     //три вспомогательные переменные для фиксации того, что ввод был осуществлен верно
-    static int i = 0;
-    static int j = 0;
-    static int z = 0;
+    private static int i = 0;
+    private static int j = 0;
+    private static int z = 0;
 
     //регулярное выражение
-    static String pattern1 = "[0-9]";
-    static Pattern p1 = Pattern.compile(pattern1);
+    private static String pattern1 = "[1-9]";
+    private static Pattern p1 = Pattern.compile(pattern1);
+
+    private static int entryIsChecked(int minute) throws IOException {
+        System.out.println("please write minute for color, only numeric");
+        String s = bufferedReader.readLine();
+        Matcher m = p1.matcher(s);
+        if (m.find()) {
+            System.out.println("ok");
+            minute = Integer.valueOf(s);
+        } else System.out.println("no!");
+        return minute;
+    }
 
     //метод записи
     public static boolean writeMinute() throws IOException {
         for (; ; ) {
             if (i == 0) {
-                System.out.println("please write minute for red, only numeric");
-                String s1 = bufferedReader.readLine();
-                Matcher m1 = p1.matcher(s1);
-                if (m1.find()) {
-                    System.out.println("ok");
-                    i = +1;
-                    minuteRed = Integer.valueOf(s1);
-                } else System.out.println("no!");
-            }
+                entryIsChecked(minuteRed);
+                i = +1;
 
-            if (j == 0) {
-                System.out.println("please write minute for Green, only numeric");
-                String s2 = bufferedReader.readLine();
-                Matcher m2 = p1.matcher(s2);
-                if (m2.find()) {
-                    System.out.println("ok");
+                if (j == 0) {
+                    entryIsChecked(minuteYelow);
                     j = +1;
-                    minuteGreen = Integer.valueOf(s2);
-                } else System.out.println("no!");
-            }
+                }
 
-            if (z == 0) {
-                System.out.println("please write minute for Yellow, only numeric");
-                String s3 = bufferedReader.readLine();
-                Matcher m3 = p1.matcher(s3);
-                if (m3.find()) {
-                    System.out.println("ok");
+                if (z == 0) {
+                    entryIsChecked(minuteGreen);
                     z = +1;
-                    minuteYelow = Integer.valueOf(s3);
-                } else System.out.println("no!");
-            }
-            if (i != 0 && j != 0 && z != 0) {
-                bufferedReader.close();
-                return true;
+                }
+
+                if (i != 0 && j != 0 && z != 0) {
+                    bufferedReader.close();
+                    return true;
+                }
             }
         }
-    }
 
+    }
 }
