@@ -10,18 +10,18 @@ import static controller.Write.*;
 
 public class LightWindow extends JFrame {
 
-    int tominute = 1000; // увеличение введенного значения
-    final static int SIZE = 150; // фиксированный размер для кружочков
+    private int tominute = 1000; // увеличение введенного значения
+    private final static int SIZE = 150; // фиксированный размер для кружочков
 
-    public JLabel one, two, three; // элементы окна
+    private JLabel one, two, three; // элементы окна
 
-    private ArrayList<JLabel> list = new ArrayList<JLabel>(); // массив для элементов окна и геттер для него
+    private ArrayList<JLabel> list = new ArrayList<>(); // массив для элементов окна и геттер для него
 
     private ArrayList getList() {
         return list;
     }
 
-    static Icon[] icons = new Icon[4]; // массив для хранения цветов и размеров, через иконки
+    private static Icon[] icons = new Icon[4]; // массив для хранения цветов и размеров, через иконки
 
     static { // обращение к конструктору
         icons[0] = new curveIcon(Color.RED, SIZE);
@@ -54,43 +54,40 @@ public class LightWindow extends JFrame {
         pack(); // стягивание рамок экрана до размеров самого крупного элемента
         initMetalLookAndFeel(); // метод установки дизайна экрана
         setVisible(true);
-        for (; ; ) {
+        for (int i = 10; i >= 0 ; i-- ) {
             runLight(); // запуск переключения цветов
         }
     }
 
     private void runLight() throws InterruptedException {
         ArrayList lst = getList();
-        Thread red = new Thread() {
-            public void run() {
-                try {
-                    ((JLabel) lst.get(0)).setIcon(icons[0]);
-                    ((JLabel) lst.get(2)).setIcon(icons[3]);
-                    sleep(getMinuteRed() * tominute);
-                } catch (Exception ex) {
-                }
+        Thread red = new Thread(() -> {
+            try {
+                ((JLabel) lst.get(0)).setIcon(icons[0]);
+                ((JLabel) lst.get(2)).setIcon(icons[3]);
+                Thread.sleep(getMinuteRed() * tominute);
+            } catch (Exception ex) {
+                System.err.println("Warning!");
             }
-        };
-        Thread yellow = new Thread() {
-            public void run() {
-                try {
-                    ((JLabel) lst.get(1)).setIcon(icons[1]);
-                    ((JLabel) lst.get(0)).setIcon(icons[3]);
-                    sleep(getMinuteYelow() * tominute);
-                } catch (Exception ex) {
-                }
+        });
+        Thread yellow = new Thread(() -> {
+            try {
+                ((JLabel) lst.get(1)).setIcon(icons[1]);
+                ((JLabel) lst.get(0)).setIcon(icons[3]);
+                Thread.sleep(getMinuteYelow() * tominute);
+            } catch (Exception ex) {
+                System.err.println("Warning!");
             }
-        };
-        Thread green = new Thread() {
-            public void run() {
-                try {
-                    ((JLabel) lst.get(2)).setIcon(icons[2]);
-                    ((JLabel) lst.get(1)).setIcon(icons[3]);
-                    sleep(getMinuteGreen() * tominute);
-                } catch (Exception ex) {
-                }
+        });
+        Thread green = new Thread(() -> {
+            try {
+                ((JLabel) lst.get(2)).setIcon(icons[2]);
+                ((JLabel) lst.get(1)).setIcon(icons[3]);
+                Thread.sleep(getMinuteGreen() * tominute);
+            } catch (Exception ex) {
+                System.err.println("Warning!");
             }
-        };
+        });
         red.start();
         red.join();
         yellow.start();
@@ -101,9 +98,9 @@ public class LightWindow extends JFrame {
     }
 
     static class curveIcon implements Icon {
-        int width;
-        int height;
-        Color useColor;
+        private int width;
+        private int height;
+        private Color useColor;
 
         curveIcon(Color c, int s) {
             this.useColor = c;
@@ -131,7 +128,7 @@ public class LightWindow extends JFrame {
         }
     }
 
-    public static void initMetalLookAndFeel() {
+    private static void initMetalLookAndFeel() {
         try {
             // устанавливаем используемую тему оформления.
             MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
